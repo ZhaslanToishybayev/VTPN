@@ -2,11 +2,12 @@ import SupplyDonut from '@/components/charts/SupplyDonut'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Reveal from '@/components/ui/Reveal'
 import Container from '@/components/layout/Container'
+import AnimatedNumber from '@/components/ui/AnimatedNumber'
 import { TOKEN, home } from '@/content/site'
 
 export default function SupplyOverview() {
   return (
-    <section className="relative py-24 md:py-32 bg-[#0A0C11]/60 border-y border-white/[0.04]">
+    <section className="relative py-24 md:py-32 border-y border-white/[0.04]">
       <Container>
         <Reveal>
           <SectionHeading
@@ -35,7 +36,7 @@ export default function SupplyOverview() {
                 <SupplyDonut
                   liquidityPct={TOKEN.liquidityPct}
                   vestingPct={TOKEN.vestingPct}
-                  size={300}
+                  size={320}
                 />
               </div>
             </div>
@@ -63,13 +64,12 @@ export default function SupplyOverview() {
                           className="font-bold text-2xl font-mono tracking-tight"
                           style={{ color: item.color }}
                         >
-                          {item.pct}%
+                          <AnimatedNumber value={item.pct} />%
                         </span>
                       </div>
                       <span className="text-[#9AA3B2] text-sm font-mono">
                         {item.amount}
                       </span>
-                      {/* progress bar */}
                       <div className="mt-3.5 h-1 bg-white/[0.06] rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-500"
@@ -104,7 +104,7 @@ export default function SupplyOverview() {
                     className="gradient-text text-3xl md:text-4xl font-bold font-mono"
                     style={{ fontFamily: 'var(--font-mono)' }}
                   >
-                    100,000,000
+                    <AnimatedNumber value={100_000_000} />
                   </span>
                   <span className="text-[#9AA3B2] ml-2 text-sm font-mono">
                     VTPN

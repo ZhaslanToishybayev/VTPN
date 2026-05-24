@@ -14,6 +14,7 @@
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, 'Courier New', monospace;
+  --font-display: var(--font-display), ui-serif, Georgia, serif;
 
   --radius-card: 16px;
   --radius-btn: 10px;
@@ -30,7 +31,21 @@
   }
 
   html {
+    /* Lenis controls scroll; keep smooth fallback for reduced-motion users */
     scroll-behavior: smooth;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
   }
 
   body {
@@ -46,12 +61,13 @@
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'cv11', 'cv05';
   }
 
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.15;
+    line-height: 1.05;
     font-weight: 700;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.028em;
   }
 
   a {
@@ -64,7 +80,12 @@
     color: #F5F7FA;
   }
 
-  /* refined custom scrollbar */
+  *:focus-visible {
+    outline: 2px solid rgba(124, 92, 250, 0.6);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -86,6 +107,20 @@
 }
 
 @layer utilities {
+  /* Display headline mix: sans + serif italic for premium feel */
+  .text-display {
+    font-family: var(--font-sans);
+    letter-spacing: -0.035em;
+  }
+
+  .text-display em,
+  .text-display .serif {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
   .glass {
     background: linear-gradient(
       135deg,
@@ -143,6 +178,77 @@
 
   .gradient-bg {
     background: linear-gradient(135deg, #7C5CFA 0%, #6E56F8 50%, #22D3EE 130%);
+  }
+
+  /* Aurora/mesh — animated CSS-only gradient backdrop */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .aurora::before,
+  .aurora::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+  .aurora::before {
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(ellipse, rgba(124, 92, 250, 0.5) 0%, transparent 70%);
+    top: -20%;
+    left: 10%;
+    animation: aurora-drift-a 22s ease-in-out infinite alternate;
+  }
+  .aurora::after {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(34, 211, 238, 0.35) 0%, transparent 70%);
+    top: 30%;
+    right: 5%;
+    animation: aurora-drift-b 28s ease-in-out infinite alternate;
+  }
+  @keyframes aurora-drift-a {
+    0%   { transform: translate3d(0,0,0)   scale(1); }
+    50%  { transform: translate3d(40px,80px,0)  scale(1.1); }
+    100% { transform: translate3d(-30px,40px,0) scale(0.95); }
+  }
+  @keyframes aurora-drift-b {
+    0%   { transform: translate3d(0,0,0)    scale(1); }
+    50%  { transform: translate3d(-60px,50px,0) scale(1.15); }
+    100% { transform: translate3d(40px,-30px,0) scale(0.95); }
+  }
+
+  /* Spotlight card — radial cursor reveal */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(124, 92, 250, 0.18),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+  .spotlight > * {
+    position: relative;
+    z-index: 1;
   }
 
   .gradient-border {
@@ -229,6 +335,18 @@
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.1) 80%, transparent);
   }
 
+  /* Marquee */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+  .marquee-pause:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
   @keyframes shimmer {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
@@ -265,6 +383,33 @@
 
   .pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes grid-fade {
+    0%, 100% { opacity: 0.03; }
+    50% { opacity: 0.05; }
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    animation: grid-fade 8s ease-in-out infinite;
+  }
+
+  /* Smooth height transitions for accordions */
+  details.smooth > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  details.smooth > summary::-webkit-details-marker {
+    display: none;
+  }
+  details.smooth[open] > summary {
+    margin-bottom: 1rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
