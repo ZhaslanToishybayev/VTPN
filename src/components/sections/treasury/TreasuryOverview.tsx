@@ -10,15 +10,18 @@ import { treasury, ADDRESSES } from '@/content/site'
 
 export default function TreasuryOverview() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="relative py-24 md:py-32">
       <Container>
         <Reveal>
-          <SectionHeading subtitle={treasury.overview.description}>
+          <SectionHeading
+            eyebrow="Overview"
+            subtitle={treasury.overview.description}
+          >
             {treasury.overview.heading}
           </SectionHeading>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
           <Reveal className="space-y-6">
             <StatCard
               value="90M"
@@ -29,9 +32,11 @@ export default function TreasuryOverview() {
           </Reveal>
 
           <Reveal delay={0.1} className="space-y-4">
-            <GlassCard>
+            <GlassCard hover>
               <div className="flex items-center gap-3 mb-4">
-                <ShieldCheck size={20} className="text-[#6E56F8]" />
+                <div className="w-10 h-10 rounded-[10px] bg-gradient-to-br from-[#7C5CFA]/20 to-[#7C5CFA]/5 border border-[#7C5CFA]/30 flex items-center justify-center">
+                  <ShieldCheck size={18} className="text-[#A78BFA]" />
+                </div>
                 <h3 className="text-[#F5F7FA] font-semibold">
                   {treasury.allocation.heading}
                 </h3>
