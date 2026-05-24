@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { NAV_LINKS } from '@/lib/nav'
+import { FOOTER_LINKS } from '@/lib/nav'
 import { ADDRESSES } from '@/content/site'
 import Container from './Container'
 
@@ -49,7 +49,7 @@ export default function Footer() {
               Protocol
             </p>
             <ul className="flex flex-col gap-2.5">
-              {NAV_LINKS.map((link) => (
+              {FOOTER_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

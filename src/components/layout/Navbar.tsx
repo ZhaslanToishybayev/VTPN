@@ -58,14 +58,14 @@ export default function Navbar() {
             </Link>
 
             {/* desktop nav */}
-            <ul className="hidden md:flex items-center gap-1 p-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
+            <ul className="hidden md:flex items-center gap-0.5 p-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href
                 return (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                      className={`relative px-3 lg:px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-all duration-200 ${
                         isActive
                           ? 'text-[#F5F7FA] bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
                           : 'text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/[0.04]'
