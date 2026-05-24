@@ -9,7 +9,7 @@ interface AddressBoxProps {
 }
 
 function truncate(addr: string): string {
-  return `${addr.slice(0, 10)}...${addr.slice(-6)}`
+  return `${addr.slice(0, 10)}…${addr.slice(-6)}`
 }
 
 export default function AddressBox({ address, label }: AddressBoxProps) {
@@ -34,9 +34,11 @@ export default function AddressBox({ address, label }: AddressBoxProps) {
   }
 
   return (
-    <div className="glass rounded-[12px] p-4">
+    <div className="glass gradient-border rounded-[12px] p-4 transition-colors hover:border-[#7C5CFA]/30">
       {label && (
-        <p className="text-[#9AA3B2] text-xs uppercase tracking-widest mb-3">{label}</p>
+        <p className="text-[#9AA3B2] text-[10px] uppercase tracking-[0.22em] mb-3 font-semibold">
+          {label}
+        </p>
       )}
       {address ? (
         <div className="flex items-center gap-3">
@@ -49,23 +51,23 @@ export default function AddressBox({ address, label }: AddressBoxProps) {
           </span>
           <button
             onClick={handleCopy}
-            className="flex-shrink-0 p-2 rounded-[8px] hover:bg-white/10 transition-colors duration-150 text-[#9AA3B2] hover:text-[#F5F7FA]"
+            className="flex-shrink-0 p-2 rounded-[8px] bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.06] hover:border-white/15 transition-all duration-150 text-[#9AA3B2] hover:text-[#F5F7FA]"
             aria-label={copied ? 'Copied' : 'Copy address'}
           >
             {copied ? (
-              <Check size={16} className="text-[#22D3EE]" />
+              <Check size={14} className="text-[#22D3EE]" />
             ) : (
-              <Copy size={16} />
+              <Copy size={14} />
             )}
           </button>
           <a
             href={`https://etherscan.io/address/${address}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 p-2 rounded-[8px] hover:bg-white/10 transition-colors duration-150 text-[#9AA3B2] hover:text-[#F5F7FA]"
+            className="flex-shrink-0 p-2 rounded-[8px] bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.06] hover:border-white/15 transition-all duration-150 text-[#9AA3B2] hover:text-[#F5F7FA]"
             aria-label="View on Etherscan"
           >
-            <ExternalLink size={16} />
+            <ExternalLink size={14} />
           </a>
         </div>
       ) : (

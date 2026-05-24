@@ -1,5 +1,4 @@
-import { CheckCircle2 } from 'lucide-react'
-import GlassCard from '@/components/ui/GlassCard'
+import { CheckCircle2, Sparkles } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Reveal from '@/components/ui/Reveal'
 import Container from '@/components/layout/Container'
@@ -7,19 +6,22 @@ import { liquidity } from '@/content/site'
 
 export default function LiquidityRules() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="relative py-24 md:py-32">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* expansion rules */}
           <div>
             <Reveal>
-              <SectionHeading>{liquidity.rules.heading}</SectionHeading>
+              <SectionHeading eyebrow="Rules">{liquidity.rules.heading}</SectionHeading>
             </Reveal>
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-3">
               {liquidity.rules.items.map((item, i) => (
-                <Reveal key={i} delay={i * 0.1}>
-                  <div className="flex gap-3 items-start glass rounded-[12px] p-4">
-                    <CheckCircle2 size={18} className="text-[#6E56F8] flex-shrink-0 mt-0.5" />
+                <Reveal key={i} delay={i * 0.08}>
+                  <div className="flex gap-3 items-start glass gradient-border rounded-[12px] p-4 hover:border-[#22D3EE]/30 transition-colors">
+                    <CheckCircle2
+                      size={18}
+                      className="text-[#22D3EE] flex-shrink-0 mt-0.5"
+                    />
                     <p className="text-[#9AA3B2] text-sm leading-relaxed">{item}</p>
                   </div>
                 </Reveal>
@@ -30,14 +32,18 @@ export default function LiquidityRules() {
           {/* design intent */}
           <div>
             <Reveal>
-              <SectionHeading>{liquidity.intent.heading}</SectionHeading>
+              <SectionHeading eyebrow="Intent">{liquidity.intent.heading}</SectionHeading>
             </Reveal>
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-3">
               {liquidity.intent.items.map((item, i) => (
-                <Reveal key={i} delay={i * 0.1}>
-                  <GlassCard className="py-4 px-5">
-                    <p className="text-[#F5F7FA] font-medium text-sm">{item}</p>
-                  </GlassCard>
+                <Reveal key={i} delay={i * 0.08}>
+                  <div className="flex gap-3 items-start glass gradient-border rounded-[12px] p-4 hover:border-[#7C5CFA]/30 transition-colors">
+                    <Sparkles
+                      size={16}
+                      className="text-[#A78BFA] flex-shrink-0 mt-1"
+                    />
+                    <p className="text-[#F5F7FA] font-medium text-sm leading-relaxed">{item}</p>
+                  </div>
                 </Reveal>
               ))}
             </div>

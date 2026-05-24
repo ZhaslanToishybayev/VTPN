@@ -15,6 +15,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
+    handler()
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -40,14 +41,16 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass border-b border-white/8' : 'bg-transparent'
+          scrolled
+            ? 'glass-strong border-b border-white/10'
+            : 'bg-transparent border-b border-transparent'
         }`}
       >
         <Container>
-          <nav className="flex items-center justify-between h-16 md:h-18">
+          <nav className="flex items-center justify-between h-16 md:h-[72px]">
             <Link href="/" className="flex items-center gap-2 group">
               <span
-                className="gradient-text text-xl font-bold tracking-widest"
+                className="gradient-text text-xl font-bold tracking-[0.18em] transition-transform group-hover:scale-105"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
                 VTPN
@@ -55,17 +58,17 @@ export default function Navbar() {
             </Link>
 
             {/* desktop nav */}
-            <ul className="hidden md:flex items-center gap-1">
+            <ul className="hidden md:flex items-center gap-1 p-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href
                 return (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`px-4 py-2 rounded-[8px] text-sm font-medium transition-all duration-150 ${
+                      className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                         isActive
-                          ? 'text-[#F5F7FA] bg-white/8'
-                          : 'text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/5'
+                          ? 'text-[#F5F7FA] bg-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
+                          : 'text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/[0.04]'
                       }`}
                     >
                       {link.label}
@@ -77,12 +80,12 @@ export default function Navbar() {
 
             {/* mobile hamburger */}
             <button
-              className="md:hidden p-2 rounded-[8px] text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/8 transition-colors"
+              className="md:hidden p-2 rounded-[10px] text-[#9AA3B2] hover:text-[#F5F7FA] bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] transition-colors"
               onClick={() => setOpen(true)}
               aria-label="Open navigation"
               aria-expanded={open}
             >
-              <Menu size={20} />
+              <Menu size={18} />
             </button>
           </nav>
         </Container>
@@ -91,7 +94,7 @@ export default function Navbar() {
       {/* mobile drawer backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md md:hidden"
           onClick={() => setOpen(false)}
           aria-hidden
         />
@@ -100,7 +103,7 @@ export default function Navbar() {
       {/* mobile drawer */}
       <div
         ref={drawerRef}
-        className={`fixed top-0 right-0 bottom-0 z-50 w-72 glass border-l border-white/8 md:hidden transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 bottom-0 z-50 w-80 glass-strong border-l border-white/10 md:hidden transition-transform duration-300 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-modal={open}
@@ -108,17 +111,17 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between p-5 border-b border-white/8">
           <span
-            className="gradient-text text-xl font-bold tracking-widest"
+            className="gradient-text text-xl font-bold tracking-[0.18em]"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             VTPN
           </span>
           <button
             onClick={() => setOpen(false)}
-            className="p-2 rounded-[8px] text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/8 transition-colors"
+            className="p-2 rounded-[10px] text-[#9AA3B2] hover:text-[#F5F7FA] bg-white/[0.04] hover:bg-white/[0.08] transition-colors"
             aria-label="Close navigation"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
         <nav className="p-4">
@@ -129,10 +132,10 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className={`block px-4 py-3 rounded-[8px] text-sm font-medium transition-all duration-150 ${
+                    className={`block px-4 py-3 rounded-[10px] text-sm font-medium transition-all duration-150 ${
                       isActive
-                        ? 'text-[#F5F7FA] bg-white/10'
-                        : 'text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/5'
+                        ? 'text-[#F5F7FA] bg-white/[0.08] border border-white/10'
+                        : 'text-[#9AA3B2] hover:text-[#F5F7FA] hover:bg-white/[0.04]'
                     }`}
                   >
                     {link.label}
